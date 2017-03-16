@@ -1,0 +1,11 @@
+{% extends 'app_wall/base.html' %}
+{% block title %}
+    <title>Авторизация пользователя</title>
+{% endblock %}
+{% block content %}
+    <div class="social-group">
+        <span>Войти с помощью...</span><br>
+        <a class="social-btn social-fb" href="{% url "social:begin" "facebook" %}" title="Зайти через Facebook"></a>
+        <a class="social-btn social-vk" href="{% url "social:begin" "vk-oauth2" %}" title="Зайти через ВКонтакте"></a>
+    </div>
+{% endblock %}

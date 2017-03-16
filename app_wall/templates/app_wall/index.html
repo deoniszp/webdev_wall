@@ -1,0 +1,41 @@
+{% extends 'app_wall/base.html' %}
+{% block title %}
+    <title>Стена сообщений</title>
+{% endblock %}
+{% block content %}
+    <div class="container">
+    {% if request.user.is_authenticated %}
+    <div class="add-message clearfix">
+        <div class="user">
+            <strong>{{ request.user.first_name }} {{ request.user.last_name }}</strong> (<a href="/logout/">Выйти</a>)
+        </div>
+        <div class="user-info"></div>
+        <div class="input-message">
+            <form method="post" action="{% url 'app_wall:add_message' %}">
+                {% csrf_token %}
+                {{ form_message }}
+                <button class="btn" type="submit" >Отправить</button>
+            </form>
+        </div>
+    </div>
+    {% else %}
+    <div class="not-register">
+        <span>Для добавления и комментирования сообщения выполните <a class="btn-login" href="/login/">вход</a></span>
+    </div>
+    {% endif %}
+
+        {# hided form for reply message or content #}
+    <div id="form_parking">
+        <div id="form_answer" class="input-message add-message clearfix" hidden>
+            <form id="form_comment_reply" action="{% url 'app_wall:add_comment' %}" method="post">
+                {% csrf_token %}
+                {{ form_comment }}
+                <button class="btn" type="submit">Отправить</button>
+            </form>
+        </div>
+    </div>
+
+    {# messages #}
+    <div id="content"></div>
+</div>
+{% endblock %}

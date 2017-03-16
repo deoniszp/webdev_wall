@@ -1,0 +1,25 @@
+{% load static %}
+<ul id="comments-list">
+{% for message, comments in messages_list.items %}
+    <li>
+        <div class="comment-block clearfix">
+            <div class="comment-item__info">
+                <span class="comment-item__user">
+                    <span class="comment-item__avatar"></span>
+                    <span class="comment-item__name">{{ message.user.first_name }} {{ message.user.last_name }}</span>
+                </span>
+                <time class="comment-item__date_pub">{{ message.date_pub|date:"d-m-Y H:i:s" }}</time>
+            </div>
+            <div class="comment-item__text">{{ message.text }}</div>
+            {% if request.user.is_authenticated %}
+                <a href="" class="btn comment-link" data-message-id="{{ message.id }}">Комментировать</a>
+            {% endif %}
+        </div>
+    {% if comments %}
+        <ul>
+            {% include 'app_wall/comment_list.html' %}
+        </ul>
+    {% endif %}
+    </li>
+{% endfor %}
+</ul>
